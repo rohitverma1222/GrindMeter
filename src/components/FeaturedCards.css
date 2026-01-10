@@ -1,0 +1,75 @@
+.featured-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.featured-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 140px;
+    position: relative;
+    overflow: hidden;
+}
+
+.featured-card.quest {
+    background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+}
+
+.featured-card.javascript {
+    background: linear-gradient(135deg, #f7931e 0%, #f15a24 100%);
+}
+
+.featured-card.interview {
+    background: linear-gradient(135deg, #007aff 0%, #0051af 100%);
+}
+
+.card-info h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.card-info p {
+    margin: 0 0 1rem;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.badge {
+    background: #3b82f6;
+    font-size: 0.65rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.begin-btn,
+.learn-btn,
+.get-started-btn {
+    background: white;
+    color: black;
+    border: none;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.card-img {
+    font-size: 3rem;
+    opacity: 0.3;
+}
+
+@media (max-width: 1024px) {
+    .featured-section {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,83 @@
+.filter-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: var(--bg-card);
+    padding: 1rem;
+    border-radius: 12px;
+}
+
+.search-bar {
+    flex: 1;
+    max-width: 400px;
+    position: relative;
+}
+
+.search-bar input {
+    width: 100%;
+    background: #3e3e3e;
+    border: none;
+    padding: 0.6rem 1rem 0.6rem 2.5rem;
+    border-radius: 8px;
+    color: white;
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    left: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+}
+
+.rating-range {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: #3e3e3e;
+    padding: 0.3rem 0.8rem;
+    border-radius: 8px;
+    margin-left: auto;
+}
+
+.range-input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.range-input label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.range-input input {
+    width: 60px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    outline: none;
+    padding: 0.2rem 0;
+}
+
+.range-separator {
+    opacity: 0.3;
+}
+
+/* Hide number input spinners */
+.range-input input::-webkit-outer-spin-button,
+.range-input input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.range-input input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
