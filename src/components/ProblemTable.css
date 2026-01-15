@@ -79,6 +79,7 @@
 }
 
 .col-difficulty {
+    display: none;
     font-weight: 600;
 }
 
