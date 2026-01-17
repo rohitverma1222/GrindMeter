@@ -2,10 +2,10 @@ import React from 'react';
 import './ProblemTable.css';
 
 const ProblemTable = ({ paginatedData, solvedProblems, toggleSolved, currentPage, totalPages, setCurrentPage, itemsPerPage, setItemsPerPage, sortOrder, setSortOrder }) => {
-    const getDifficulty = (rating) => {
-        if (rating < 1300) return { label: 'Easy', color: '#00af9b' };
-        if (rating < 1600) return { label: 'Medium', color: '#ffb800' };
-        return { label: 'Hard', color: '#ff2d55' };
+    const difficultyColors = {
+        'Easy': '#00af9b',
+        'Medium': '#ffb800',
+        'Hard': '#ff2d55'
     };
 
     const handleSort = () => {
@@ -36,7 +36,8 @@ const ProblemTable = ({ paginatedData, solvedProblems, toggleSolved, currentPage
                 </thead>
                 <tbody>
                     {paginatedData.map((problem) => {
-                        const diff = getDifficulty(problem.Rating);
+                        const difficulty = problem.difficulty || 'Easy';
+                        const color = difficultyColors[difficulty] || '#00af9b';
                         return (
                             <tr key={problem.ID} className={solvedProblems.has(problem.ID) ? 'solved-row' : ''}>
                                 <td className="col-status">
@@ -61,10 +62,10 @@ const ProblemTable = ({ paginatedData, solvedProblems, toggleSolved, currentPage
                                     {problem.Rating.toFixed(0)}
                                 </td>
                                 <td className="col-likes">
-                                    <span><span className="likes-icon">👍</span>{problem.Likes || Math.floor((problem.ID % 500) + (problem.Rating / 10))}</span>
+                                    <span><span className="likes-icon">👍</span>{problem.likes ?? 0}</span>
                                 </td>
-                                <td className="col-difficulty" style={{ color: diff.color }}>
-                                    {diff.label}
+                                <td className="col-difficulty" style={{ color: color }}>
+                                    {difficulty}
                                 </td>
                             </tr>
                         );

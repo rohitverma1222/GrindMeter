@@ -157,14 +157,13 @@ function App() {
     };
 
     filteredAndSortedData.forEach(p => {
-      let tier;
-      if (p.Rating < 1300) tier = 'Easy';
-      else if (p.Rating < 1700) tier = 'Medium';
-      else tier = 'Hard';
+      const tier = p.difficulty || 'Easy';
 
-      tiers[tier].total++;
-      if (solvedProblems.has(p.ID)) {
-        tiers[tier].solved++;
+      if (tiers[tier]) {
+        tiers[tier].total++;
+        if (solvedProblems.has(p.ID)) {
+          tiers[tier].solved++;
+        }
       }
     });
 
