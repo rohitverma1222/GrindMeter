@@ -14,6 +14,7 @@ import SolvedToast from './components/SolvedToast'
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('')
+  const [sortKey, setSortKey] = useState('Rating')
   const [sortOrder, setSortOrder] = useState('desc')
   const [minRating, setMinRating] = useState('')
   const [maxRating, setMaxRating] = useState('')
@@ -124,11 +125,22 @@ function App() {
     )
 
     result.sort((a, b) => {
-      if (sortOrder === 'asc') {
-        return a.Rating - b.Rating
-      } else {
-        return b.Rating - a.Rating
+      let valA = a[sortKey]
+      let valB = b[sortKey]
+
+      // Handle cases where value might be missing (like 'likes')
+      if (sortKey === 'likes') {
+        valA = valA ?? 0
+        valB = valB ?? 0
       }
+
+      if (typeof valA === 'string') {
+        return sortOrder === 'asc'
+          ? valA.localeCompare(valB)
+          : valB.localeCompare(valA)
+      }
+
+      return sortOrder === 'asc' ? valA - valB : valB - valA
     })
 
     return result
@@ -204,6 +216,8 @@ function App() {
               setCurrentPage={setCurrentPage}
               itemsPerPage={itemsPerPage}
               setItemsPerPage={(val) => { setItemsPerPage(val); setCurrentPage(1); }}
+              sortKey={sortKey}
+              setSortKey={setSortKey}
               sortOrder={sortOrder}
               setSortOrder={setSortOrder}
             />

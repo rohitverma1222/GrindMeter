@@ -1,15 +1,25 @@
 import React from 'react';
 import './ProblemTable.css';
 
-const ProblemTable = ({ paginatedData, solvedProblems, toggleSolved, currentPage, totalPages, setCurrentPage, itemsPerPage, setItemsPerPage, sortOrder, setSortOrder }) => {
+const ProblemTable = ({ paginatedData, solvedProblems, toggleSolved, currentPage, totalPages, setCurrentPage, itemsPerPage, setItemsPerPage, sortKey, setSortKey, sortOrder, setSortOrder }) => {
     const difficultyColors = {
         'Easy': '#00af9b',
         'Medium': '#ffb800',
         'Hard': '#ff2d55'
     };
 
-    const handleSort = () => {
-        setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+    const handleSort = (key) => {
+        if (sortKey === key) {
+            setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+        } else {
+            setSortKey(key);
+            setSortOrder('desc');
+        }
+    };
+
+    const getSortIndicator = (key) => {
+        if (sortKey !== key) return '';
+        return sortOrder === 'asc' ? ' ↑' : ' ↓';
     };
 
     return (
@@ -20,17 +30,22 @@ const ProblemTable = ({ paginatedData, solvedProblems, toggleSolved, currentPage
                         <th className="col-status">Status</th>
                         <th className="col-title">Title</th>
                         <th
-                            className="col-acceptance sortable"
-                            onClick={handleSort}
+                            className={`col-acceptance sortable ${sortKey === 'Rating' ? 'active-sort' : ''}`}
+                            onClick={() => handleSort('Rating')}
                         >
-                            Rating {sortOrder === 'asc' ? '↑' : '↓'}
+                            Rating{getSortIndicator('Rating')}
                         </th>
-                        <th className="col-likes">Likes</th>
                         <th
-                            className="col-difficulty sortable"
-                            onClick={handleSort}
+                            className={`col-likes sortable ${sortKey === 'likes' ? 'active-sort' : ''}`}
+                            onClick={() => handleSort('likes')}
                         >
-                            Difficulty
+                            Likes{getSortIndicator('likes')}
+                        </th>
+                        <th
+                            className={`col-difficulty sortable ${sortKey === 'difficulty' ? 'active-sort' : ''}`}
+                            onClick={() => handleSort('difficulty')}
+                        >
+                            Difficulty{getSortIndicator('difficulty')}
                         </th>
                     </tr>
                 </thead>

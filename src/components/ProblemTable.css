@@ -38,6 +38,11 @@
     color: var(--text-primary);
 }
 
+.problem-table th.active-sort {
+    color: #3b82f6;
+    font-weight: 700;
+}
+
 .problem-table td {
     padding: 1rem;
     border-bottom: 1px solid var(--border-color);
@@ -79,7 +84,7 @@
 }
 
 .col-difficulty {
-    display: none;
+    /* display: none; */
     font-weight: 600;
 }
 
