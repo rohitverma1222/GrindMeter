@@ -11,13 +11,16 @@ const memes = [
 
 const SolvedToast = ({ show, problemTitle, onClose }) => {
     const [meme, setMeme] = useState(memes[0]);
+    const [isExiting, setIsExiting] = useState(false);
 
     useEffect(() => {
         if (show) {
             setMeme(memes[Math.floor(Math.random() * memes.length)]);
+            setIsExiting(false);
             const timer = setTimeout(() => {
-                onClose();
-            }, 4000);
+                setIsExiting(true);
+                setTimeout(onClose, 300);
+            }, 3500);
             return () => clearTimeout(timer);
         }
     }, [show, onClose]);
@@ -25,15 +28,13 @@ const SolvedToast = ({ show, problemTitle, onClose }) => {
     if (!show) return null;
 
     return (
-        <div className="meme-overlay" onClick={onClose}>
-            <div className="meme-popup" onClick={(e) => e.stopPropagation()}>
-                <button className="meme-close" onClick={onClose}>×</button>
-                <img src={meme.image} alt={meme.text} className="meme-image" />
-                <div className="meme-footer">
-                    <p className="solved-text">Problem Solved! 🎉</p>
-                    <p className="problem-name">{problemTitle}</p>
-                </div>
+        <div className={`snackbar ${isExiting ? 'snackbar-exit' : ''}`}>
+            <img src={meme.image} alt={meme.text} className="snackbar-image" />
+            <div className="snackbar-content">
+                <p className="snackbar-title">Problem Solved! 🎉</p>
+                <p className="snackbar-problem">{problemTitle}</p>
             </div>
+            <button className="snackbar-close" onClick={onClose}>×</button>
         </div>
     );
 };
