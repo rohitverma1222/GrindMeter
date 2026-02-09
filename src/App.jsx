@@ -24,6 +24,7 @@ function App() {
   const [lastSync, setLastSync] = useState(() => localStorage.getItem('lastSync'))
   const [showToast, setShowToast] = useState(false)
   const [solvedProblemTitle, setSolvedProblemTitle] = useState('')
+  const [showOnlyStarred, setShowOnlyStarred] = useState(false)
 
   // Solved problems state with localStorage persistence
   const [solvedProblems, setSolvedProblems] = useState(() => {
@@ -31,9 +32,19 @@ function App() {
     return saved ? new Set(JSON.parse(saved)) : new Set()
   })
 
+  // Starred problems state with localStorage persistence (problems to revisit)
+  const [starredProblems, setStarredProblems] = useState(() => {
+    const saved = localStorage.getItem('starredProblems')
+    return saved ? new Set(JSON.parse(saved)) : new Set()
+  })
+
   useEffect(() => {
     localStorage.setItem('solvedProblems', JSON.stringify([...solvedProblems]))
   }, [solvedProblems])
+
+  useEffect(() => {
+    localStorage.setItem('starredProblems', JSON.stringify([...starredProblems]))
+  }, [starredProblems])
 
   const handleSync = async (username) => {
     if (!username) return;
@@ -117,11 +128,24 @@ function App() {
     })
   }
 
+  const toggleStarred = (id) => {
+    setStarredProblems(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
+      return next
+    })
+  }
+
   const filteredAndSortedData = useMemo(() => {
     let result = data.filter(item =>
       item.Title.toLowerCase().includes(searchQuery.toLowerCase()) &&
       (minRating === '' || item.Rating >= Number(minRating)) &&
-      (maxRating === '' || item.Rating <= Number(maxRating))
+      (maxRating === '' || item.Rating <= Number(maxRating)) &&
+      (!showOnlyStarred || starredProblems.has(item.ID))
     )
 
     result.sort((a, b) => {
@@ -144,7 +168,7 @@ function App() {
     })
 
     return result
-  }, [searchQuery, sortOrder, minRating, maxRating])
+  }, [searchQuery, sortOrder, minRating, maxRating, showOnlyStarred, starredProblems])
 
   // Pagination logic
   const totalItems = filteredAndSortedData.length
@@ -211,6 +235,8 @@ function App() {
               paginatedData={paginatedData}
               solvedProblems={solvedProblems}
               toggleSolved={toggleSolved}
+              starredProblems={starredProblems}
+              toggleStarred={toggleStarred}
               currentPage={currentPage}
               totalPages={totalPages}
               setCurrentPage={setCurrentPage}
@@ -230,6 +256,12 @@ function App() {
             isSyncing={isSyncing}
             lastSync={lastSync}
             onImport={handleManualImport}
+            starredCount={starredProblems.size}
+            onShowStarred={() => {
+              setShowOnlyStarred(prev => !prev)
+              setCurrentPage(1)
+            }}
+            isShowingStarred={showOnlyStarred}
           />
         </div>
       </main>

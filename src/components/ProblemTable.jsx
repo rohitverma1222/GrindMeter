@@ -1,7 +1,7 @@
 import React from 'react';
 import './ProblemTable.css';
 
-const ProblemTable = ({ paginatedData, solvedProblems, toggleSolved, currentPage, totalPages, setCurrentPage, itemsPerPage, setItemsPerPage, sortKey, setSortKey, sortOrder, setSortOrder }) => {
+const ProblemTable = ({ paginatedData, solvedProblems, toggleSolved, starredProblems, toggleStarred, currentPage, totalPages, setCurrentPage, itemsPerPage, setItemsPerPage, sortKey, setSortKey, sortOrder, setSortOrder }) => {
     const difficultyColors = {
         'Easy': '#00af9b',
         'Medium': '#ffb800',
@@ -54,13 +54,22 @@ const ProblemTable = ({ paginatedData, solvedProblems, toggleSolved, currentPage
                         const difficulty = problem.difficulty || 'Easy';
                         const color = difficultyColors[difficulty] || '#00af9b';
                         return (
-                            <tr key={problem.ID} className={solvedProblems.has(problem.ID) ? 'solved-row' : ''}>
+                            <tr key={problem.ID} className={`${solvedProblems.has(problem.ID) ? 'solved-row' : ''} ${starredProblems.has(problem.ID) ? 'starred-row' : ''}`}>
                                 <td className="col-status">
-                                    <div
-                                        className={`status-check ${solvedProblems.has(problem.ID) ? 'checked' : ''}`}
-                                        onClick={() => toggleSolved(problem.ID)}
-                                    >
-                                        {solvedProblems.has(problem.ID) ? '✓' : '○'}
+                                    <div className="status-wrapper">
+                                        <div
+                                            className={`status-check ${solvedProblems.has(problem.ID) ? 'checked' : ''}`}
+                                            onClick={() => toggleSolved(problem.ID)}
+                                        >
+                                            {solvedProblems.has(problem.ID) ? '✓' : '○'}
+                                        </div>
+                                        <div
+                                            className={`star-check ${starredProblems.has(problem.ID) ? 'starred' : ''}`}
+                                            onClick={() => toggleStarred(problem.ID)}
+                                            title={starredProblems.has(problem.ID) ? 'Remove from revisit list' : 'Mark for revisit'}
+                                        >
+                                            {starredProblems.has(problem.ID) ? '★' : '☆'}
+                                        </div>
                                     </div>
                                 </td>
                                 <td className="col-title">

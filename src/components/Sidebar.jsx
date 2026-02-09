@@ -2,7 +2,7 @@ import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import './Sidebar.css';
 
-const Sidebar = ({ solvedByTier, solvedPercentage, onSync, isSyncing, lastSync, onImport }) => {
+const Sidebar = ({ solvedByTier, solvedPercentage, onSync, isSyncing, lastSync, onImport, starredCount, onShowStarred, isShowingStarred }) => {
     const [username, setUsername] = React.useState('');
     const [importText, setImportText] = React.useState('');
     const [showImport, setShowImport] = React.useState(false);
@@ -127,19 +127,18 @@ const Sidebar = ({ solvedByTier, solvedPercentage, onSync, isSyncing, lastSync, 
                 </div>
             </div>
 
-            <div className="sidebar-widget calendar">
-                <div className="calendar-header">
-                    <span className="month">January</span>
-                    <span className="year">2026</span>
+            <div className="sidebar-widget starred-section">
+                <div className="starred-header">
+                    <span className="starred-icon">★</span>
+                    <span className="starred-title">Problems to Revisit</span>
                 </div>
-                <div className="calendar-grid">
-                    {Array.from({ length: 31 }, (_, i) => (
-                        <div key={i} className={`day ${i + 1 === 10 ? 'today' : ''} ${i < 10 ? 'past' : ''}`}>
-                            {i + 1}
-                            {i < 10 && <span className="check">✓</span>}
-                        </div>
-                    ))}
-                </div>
+                <button
+                    className={`starred-button ${isShowingStarred ? 'active' : ''}`}
+                    onClick={onShowStarred}
+                >
+                    <span className="starred-count">{starredCount}</span>
+                    <span className="starred-label">{isShowingStarred ? 'Show All Problems' : 'Show Starred Problems'}</span>
+                </button>
             </div>
         </div>
     );

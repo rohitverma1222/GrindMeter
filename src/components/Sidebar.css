@@ -209,43 +209,70 @@
     text-decoration: underline;
 }
 
-.calendar-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    font-weight: 700;
+.starred-section {
+    text-align: center;
 }
 
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.4rem;
-}
-
-.day {
-    aspect-ratio: 1;
+.starred-header {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.7rem;
-    border-radius: 4px;
-    position: relative;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
 }
 
-.day.past {
-    color: #00af9b;
+.starred-icon {
+    color: #ffd700;
+    font-size: 1.2rem;
 }
 
-.day.today {
-    background: rgba(0, 175, 155, 0.2);
-    color: #00af9b;
+.starred-title {
     font-weight: 700;
+    font-size: 0.9rem;
 }
 
-.day .check {
-    position: absolute;
-    font-size: 0.5rem;
-    bottom: 2px;
+.starred-button {
+    width: 100%;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.05) 100%);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 10px;
+    padding: 1rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.starred-button:hover {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.25) 0%, rgba(255, 215, 0, 0.1) 100%);
+    border-color: rgba(255, 215, 0, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+}
+
+.starred-count {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffd700;
+    line-height: 1;
+}
+
+.starred-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.starred-button.active {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.35) 0%, rgba(255, 215, 0, 0.2) 100%);
+    border-color: #ffd700;
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+}
+
+.starred-button.active .starred-label {
+    color: #ffd700;
 }
 
 .premium-header {

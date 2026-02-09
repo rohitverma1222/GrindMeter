@@ -20,7 +20,34 @@
 }
 
 .col-status {
-    width: 70px;
+    width: 90px;
+}
+
+.status-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.star-check {
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+}
+
+.star-check:hover {
+    transform: scale(1.2);
+    color: #ffd700;
+}
+
+.star-check.starred {
+    color: #ffd700;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+.starred-row {
+    background: rgba(255, 215, 0, 0.05);
 }
 
 .col-acceptance,
